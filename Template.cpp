@@ -1,6 +1,7 @@
 /*By : Benhard Sim*/
 #include <bits/stdc++.h>
 using namespace std;
+
 #define LL long long 
 #define ull unsigned long long
 #define pb(x) push_back(x)
@@ -8,33 +9,23 @@ using namespace std;
 #define s second
 #define mp(x,y) make_pair(x,y)
 #define fo(i, n) for (LL i = 0; i < n; i++)
-#define INF 1e10+7
+#define fo(i, a, n) for (LL i = a; i < n; i++)
+#define INF 10e10+7
 #define __gcd gcd
+#define PI 3.14159265
+#define __builtin_popcountll bpl
 typedef pair<LL,LL> ii;
 typedef vector<LL> vi;
 
-bool isPT(LL x){
-	return (x&&(!(x&(x-1))));
-}
-
-LL sumPairs(vi num,LL n,LL target){
-	map<LL,LL> pairs;
-	LL count=0;
-	for(LL i=0;i<n;i++){
-		/*search if the complement exist inside the map*/
-		if(pairs.find(target-num[i]) != pairs.end()){
-			/*put all the total element into a variable*/
-			count+=pairs[target-num[i]];
-		}
-		pairs[num[i]]++;
-	}
-	return count;
-}
 
 /*codeForce Round : # (Div. )*/
 
 void solve(){
 
+	LL n;
+	cin >> n;
+
+	
 }
 
 int main(){
