@@ -26,31 +26,38 @@ long long lcm(int a, int b){
     return (a / gcd(a, b)) * b;
 }
 
-/*DSU*/
-/*
-	Find operator
-	searching for the deepest root of the tree
-*/
-int find(int x,int fa[]){
-	if(fa[x]==x)return fa[x];
-	else return fa[x]=find(fa[x],fa);
-}
-/*
-	Union operator
-	merging two disjoint set
-*/
-int unite(int x,int y, int fa[]){
-	x=find(x,fa);
-	y=find(y,fa);
-	if(x!=y)fa[x]=y;
-}
+/*codeForce Round : # (Div. )*/
 
 void solve(){
 
 	LL n;
 	cin >> n;
-
+	string s;
+	vi num(n);
+	num[0]=1;
+	set<LL> parent;
+	parent.insert(1);
+	for(LL i=1;i<n;i++){
+		cin >> num[i];
+		parent.insert(num[i]);
+	}
+	map<LL,vi> tree;
+	for(LL i=1;i<n;i++){
+		tree[num[i]].pb(i+1);
+	}
+	cin >> s;
+	LL tot=0;
+	for(auto j:parent){
+		LL w=0,b=0;
+		LL current=j;
+		for(LL i=0;i<tree[current].size();i++){
+			if(s[tree[current][i]]=='W')w++;
+			else b++;
+		}
+		if(w==b && w!=0 && b!=0)tot++;
+	}
 	
+	cout << tot << "\n";
 }
 
 int main(){
@@ -60,5 +67,3 @@ int main(){
 	while(t--)solve();
 	return 0;
 }
-
-

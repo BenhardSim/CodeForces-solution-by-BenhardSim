@@ -9,46 +9,35 @@ using namespace std;
 #define s second
 #define mp(x,y) make_pair(x,y)
 #define fo(i, n) for (LL i = 0; i < n; i++)
-#define INF 10e9+7
+#define INF 10e10+7
+#define __gcd gcd
 #define PI 3.14159265
-#define bpl __builtin_popcountll
-#define gcd __gcd 
+#define __builtin_popcountll bpl
 typedef pair<LL,LL> ii;
 typedef vector<LL> vi;
-
-long long gcd(long long int a, long long int b){
-  if (b == 0)
-    return a;
-  return gcd(b, a % b);
-}
 
 long long lcm(int a, int b){
     return (a / gcd(a, b)) * b;
 }
 
-/*DSU*/
-/*
-	Find operator
-	searching for the deepest root of the tree
-*/
-int find(int x,int fa[]){
-	if(fa[x]==x)return fa[x];
-	else return fa[x]=find(fa[x],fa);
-}
-/*
-	Union operator
-	merging two disjoint set
-*/
-int unite(int x,int y, int fa[]){
-	x=find(x,fa);
-	y=find(y,fa);
-	if(x!=y)fa[x]=y;
-}
+/*codeForce Round : # (Div. )*/
 
 void solve(){
 
 	LL n;
 	cin >> n;
+	vi num(n);
+	LL tot=0,tot2=0;
+	fo(i,n){
+		cin >> num[i];
+		if(num[i]==1)tot++;
+		if(num[i]==0)tot2++;
+	}
+	if(tot > 0 && tot < n && tot2 > 0 && tot2 < n){
+		cout << "NO\n";
+	}else{
+		cout << "YES\n";
+	}
 
 	
 }
@@ -60,5 +49,3 @@ int main(){
 	while(t--)solve();
 	return 0;
 }
-
-

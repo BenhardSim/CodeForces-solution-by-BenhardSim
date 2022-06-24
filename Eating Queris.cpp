@@ -26,31 +26,35 @@ long long lcm(int a, int b){
     return (a / gcd(a, b)) * b;
 }
 
-/*DSU*/
-/*
-	Find operator
-	searching for the deepest root of the tree
-*/
-int find(int x,int fa[]){
-	if(fa[x]==x)return fa[x];
-	else return fa[x]=find(fa[x],fa);
-}
-/*
-	Union operator
-	merging two disjoint set
-*/
-int unite(int x,int y, int fa[]){
-	x=find(x,fa);
-	y=find(y,fa);
-	if(x!=y)fa[x]=y;
-}
+/*codeForce Round : # (Div. )*/
 
 void solve(){
 
-	LL n;
-	cin >> n;
-
-	
+	LL n,q;
+	cin >> n >> q;
+	vi num(n);
+	fo(i,n)cin >> num[i];
+	sort(num.begin(),num.end(),greater<>());
+	for(LL i=1;i<num.size();i++){
+		num[i]+=num[i-1];
+	}
+	while(q--){
+		LL target,tot=0,cnt=0;
+		cin >> target;
+		LL l=0,r=n-1;
+		LL ans=-1;
+		while(l<=r){
+			LL mid = l + (r-l)/2;
+			if(num[mid] >= target){
+				ans=mid+1;
+				r=mid-1;
+			}else{
+				l=mid+1;
+			}
+		}
+		
+		cout << ans << "\n";
+	}
 }
 
 int main(){
@@ -60,5 +64,3 @@ int main(){
 	while(t--)solve();
 	return 0;
 }
-
-

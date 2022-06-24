@@ -26,6 +26,8 @@ long long lcm(int a, int b){
     return (a / gcd(a, b)) * b;
 }
 
+int fa[1001],fb[1001];
+
 /*DSU*/
 /*
 	Find operator
@@ -39,7 +41,7 @@ int find(int x,int fa[]){
 	Union operator
 	merging two disjoint set
 */
-int unite(int x,int y, int fa[]){
+void unite(int x,int y, int fa[]){
 	x=find(x,fa);
 	y=find(y,fa);
 	if(x!=y)fa[x]=y;
@@ -47,16 +49,49 @@ int unite(int x,int y, int fa[]){
 
 void solve(){
 
-	LL n;
-	cin >> n;
-
+	LL n,m1,m2;
+	cin >> n >> m1 >> m2;
+	
+	/*value initialization*/
+	for(LL i=1;i<=n;i++){
+		fa[i]=i;
+		fb[i]=i;
+	}
+	
+	while(m1--){
+		LL u,v;
+		cin >> u >> v;
+		unite(u,v,fa);
+	}
+	while(m2--){
+		LL u,v;
+		cin >> u >> v;
+		unite(u,v,fb);
+	}
+	LL tot=0;
+	vector<ii> res;
+	for(LL i=1;i<=n;i++){
+		for(LL j=1;j<=n;j++){
+			/*check if both i and j has a different parent in mocha's tree and diana's tree*/
+			if(find(i,fa)!=find(j,fa)&&find(i,fb)!=find(j,fb)){
+				unite(i,j,fa);
+				unite(i,j,fb);
+				tot++;
+				res.pb(mp(i,j));
+			}
+		}
+	}
+	
+	cout << tot << "\n";
+	for(auto j:res){
+		cout << j.f << " " << j.s << "\n";
+	}
 	
 }
 
 int main(){
 	ios_base::sync_with_stdio(0); cin.tie(0);
 	int t=1;
-	cin >> t;
 	while(t--)solve();
 	return 0;
 }

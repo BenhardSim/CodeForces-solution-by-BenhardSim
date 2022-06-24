@@ -26,30 +26,51 @@ long long lcm(int a, int b){
     return (a / gcd(a, b)) * b;
 }
 
-/*DSU*/
-/*
-	Find operator
-	searching for the deepest root of the tree
-*/
-int find(int x,int fa[]){
-	if(fa[x]==x)return fa[x];
-	else return fa[x]=find(fa[x],fa);
-}
-/*
-	Union operator
-	merging two disjoint set
-*/
-int unite(int x,int y, int fa[]){
-	x=find(x,fa);
-	y=find(y,fa);
-	if(x!=y)fa[x]=y;
-}
+/*codeForce Round : # (Div. )*/
 
 void solve(){
 
 	LL n;
 	cin >> n;
-
+	vi a(n),b(n),c(n);
+	fo(i,n)cin >> a[i];
+	fo(i,n)cin >> b[i];
+	fo(i,n)cin >> c[i];
+	map<LL,LL> dic;
+	fo(i,n){
+		if(b[i]!=a[i]){
+			dic[b[i]]=a[i];
+		}
+	}
+	set<LL> vis;
+	LL tot=1;
+	fo(i,n){
+		if(c[i]!=0){
+			vis.insert(c[i]);
+			LL next=dic[c[i]];
+			while(vis.count(next)==0){
+				vis.insert(next);
+				next=dic[next];
+			}
+		}
+	}
+	LL mod=1000000007;
+	fo(i,n){
+		if(c[i]==0){
+			if(vis.count(b[i]) == 0 && b[i]!=a[i]){
+				tot*=2;
+				tot%=mod;
+				vis.insert(b[i]);
+				LL next=dic[b[i]];
+					while(vis.count(next)==0){
+						vis.insert(next);
+						next=dic[next];
+					}
+			}
+		}
+	}
+	
+	cout << tot%mod << "\n";
 	
 }
 
@@ -60,5 +81,3 @@ int main(){
 	while(t--)solve();
 	return 0;
 }
-
-

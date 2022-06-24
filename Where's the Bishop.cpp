@@ -26,29 +26,52 @@ long long lcm(int a, int b){
     return (a / gcd(a, b)) * b;
 }
 
-/*DSU*/
-/*
-	Find operator
-	searching for the deepest root of the tree
-*/
-int find(int x,int fa[]){
-	if(fa[x]==x)return fa[x];
-	else return fa[x]=find(fa[x],fa);
-}
-/*
-	Union operator
-	merging two disjoint set
-*/
-int unite(int x,int y, int fa[]){
-	x=find(x,fa);
-	y=find(y,fa);
-	if(x!=y)fa[x]=y;
-}
+/*codeForce Round : # (Div. )*/
 
 void solve(){
 
-	LL n;
-	cin >> n;
+	LL n=8;
+//	cin >> n;
+	char grid[8][8];
+	for(LL i=0;i<n;i++){
+		for(LL j=0;j<n;j++){
+			cin >> grid[i][j];
+		}
+	}
+	LL x=0,y=0;
+	for(LL i=0;i<n;i++){
+		LL cnt=0,idx=-1,prev;
+		for(LL j=0;j<n;j++){
+			if(grid[i][j]=='#'){
+				cnt++;
+				prev=idx;
+				idx=j;
+			}
+		}
+		if(cnt==2){
+			LL res=((prev+1)+(idx+1))/2;
+			x=res;
+			break;
+		}
+	}
+	for(LL i=0;i<n;i++){
+		LL cnt=0,idx=-1,prev;
+		for(LL j=0;j<n;j++){
+			if(grid[j][i]=='#'){
+				prev=idx;
+				cnt++;
+				idx=j;
+			}
+		}
+		if(cnt==2){
+			LL res=((prev+1)+(idx+1))/2;
+			y=res;
+			break;
+		}
+	}
+	
+	cout << y << " " << x << "\n";
+	
 
 	
 }

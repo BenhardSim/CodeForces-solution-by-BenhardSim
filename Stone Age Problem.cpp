@@ -26,37 +26,55 @@ long long lcm(int a, int b){
     return (a / gcd(a, b)) * b;
 }
 
-/*DSU*/
 /*
-	Find operator
-	searching for the deepest root of the tree
+5 5
+1 2 3 4 5
+1 1 5
+2 10
+1 5 11
+1 4 1
+2 1
 */
-int find(int x,int fa[]){
-	if(fa[x]==x)return fa[x];
-	else return fa[x]=find(fa[x],fa);
-}
-/*
-	Union operator
-	merging two disjoint set
-*/
-int unite(int x,int y, int fa[]){
-	x=find(x,fa);
-	y=find(y,fa);
-	if(x!=y)fa[x]=y;
-}
 
 void solve(){
 
-	LL n;
-	cin >> n;
+	LL n,q,tot=0;
+	cin >> n >> q;
+	vi num(n);
+	fo(i,n)cin >> num[i];
+	fo(i,n)tot+=num[i];
+	LL k=-1;
+	set<LL> vis;
+	while(q--){
+		LL t,i;
+		cin >> t;
+		if(t==1){
+			LL i,x;
+			cin >> i >> x;
+			if(k!=-1&&!vis.count(i)){
+				tot=tot-k+x;
+				vis.insert(i);
+				num[i-1]=x;
+			}else{
+				tot=tot-num[i-1]+x;
+				num[i-1]=x;
+			}
+			
+		}else{
+			LL x;
+			cin >> x;
+			tot=x*n;
+			vis.clear();
+			k=x;
+		}
+		cout << tot << "\n";
+	}
 
-	
 }
 
 int main(){
 	ios_base::sync_with_stdio(0); cin.tie(0);
 	int t=1;
-	cin >> t;
 	while(t--)solve();
 	return 0;
 }

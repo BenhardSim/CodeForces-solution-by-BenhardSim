@@ -26,31 +26,32 @@ long long lcm(int a, int b){
     return (a / gcd(a, b)) * b;
 }
 
-/*DSU*/
+/*codeForce Round : # (Div. )*/
+
 /*
-	Find operator
-	searching for the deepest root of the tree
+	main observation : there must be ONE element that is belong to the increment array
+	and the decrement array. The biggest minimum value is the length divided by 2 and if the 
+	original length is an odd number then add one after dividing it with two.
 */
-int find(int x,int fa[]){
-	if(fa[x]==x)return fa[x];
-	else return fa[x]=find(fa[x],fa);
-}
-/*
-	Union operator
-	merging two disjoint set
-*/
-int unite(int x,int y, int fa[]){
-	x=find(x,fa);
-	y=find(y,fa);
-	if(x!=y)fa[x]=y;
-}
 
 void solve(){
 
 	LL n;
 	cin >> n;
-
-	
+	map<LL,LL> freq;
+	fo(i,n){
+		LL temp;
+		cin >> temp;
+		freq[temp]++;
+	}
+	LL tot=0;
+	for(auto j:freq){
+		if(j.s>=2)tot+=2;
+		else tot++;
+	}
+	if(tot%2==0)tot/=2;
+	else tot=(tot/2)+1;
+	cout << tot << "\n";
 }
 
 int main(){
